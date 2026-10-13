@@ -12,8 +12,8 @@ know machine-learning jargon.
 
 | Route | What it is |
 |---|---|
-| `/` | The hub: links to everything, the board→system→site rationale, and honest process notes with before/after screenshots |
-| `/mood-boards/calm` · `/arcade` · `/editorial` | Three visual explorations, 28 artifacts each (color with marked UI roles, type, texture, reference studies, interface fragments — all original CSS/SVG, no photographs) plus three design lessons each |
+| `/` | The hub: real previews of all three systems (the same entry, three ways), a composed preview of the site, the board→system→site rationale, and honest process notes with before/after evidence |
+| `/mood-boards/calm` · `/arcade` · `/editorial` | Three visual explorations, 28–29 artifacts each: color with marked UI roles, type, original CSS/SVG studies, and sourced archival references (stored in `public/refs/`, credited on each tile and in [`ATTRIBUTIONS.md`](./ATTRIBUTIONS.md)) plus three design lessons each |
 | `/design-systems/calm` · `/arcade` · `/editorial` | Three full UI libraries: color roles with computed WCAG ratios, type roles, spacing/shape, 13 components with working demos, a per-component control-state matrix, and UI-state specimens |
 | `/landmarks` | The finished site, in the Editorial system |
 
@@ -37,10 +37,11 @@ filters are neutral ink fills.
 - **Single-select filters as a radiogroup** with roving tabindex and arrow
   keys; the result count (`Showing n of 17`) and reading progress
   (`k of 17 read`) live in one polite live region.
-- **Archival SVG figures** for the Perceptron (conceptual schematic), AlexNet
-  (exact published ILSVRC-2012 error rates, directly labeled), and the
-  Transformer (conceptual attention diagram) — captioned, sourced, and
-  monochrome so they belong to the Editorial system.
+- **A unified figure series** (FIG. 1–3 with plate headers): the Perceptron
+  schematic, AlexNet's exact ILSVRC-2012 error rates, and a conceptual
+  attention diagram — each placed after its story's drop-cap opening
+  paragraph, captioned, sourced, and monochrome so they belong to the
+  Editorial system.
 - **Motion** is a single subtle panel slide, removed entirely under
   `prefers-reduced-motion`.
 
@@ -52,6 +53,12 @@ refresh, and the site says so in its footer. There is no localStorage,
 sessionStorage, cookie, or IndexedDB usage. The only network requests are the
 site's own assets; external links are ordinary citations that open the
 primary source.
+
+## Writing
+
+Every story opens in plain language — what the breakthrough did and why it
+mattered — before any technical term appears, and each term (chain rule,
+pretraining, parameters, XOR) is glossed inline where it first shows up.
 
 ## Content and sources
 
@@ -72,15 +79,21 @@ npm run lint
 
 ## Verification performed
 
-Agent-driven Playwright runs against every route at 390px and 1440px (plus
-768px on the content pages): horizontal-overflow and console-error checks,
-full-page screenshots reviewed visually, and scripted interaction tests —
-filter radiogroup (click + arrow keys + accurate counts), row activation,
-panel focus entry/containment/restoration, inert background, Escape/backdrop
-close, previous/next along the filtered list, mark-as-read with live progress
-and reset-on-refresh, the design-system switch/tabs/panel demos, reduced-
-motion emulation, and a liveness check of every external source link. The
-same suite runs against the production deployment after deploy.
+The suites live in [`scripts/verify/`](./scripts/verify/) (run instructions
+there): all eight routes at 390/768/1440px with overflow, console-error, and
+broken-image checks; screenshots reviewed visually; and scripted interaction
+tests — filter radiogroup (click + arrow keys + accurate counts), row
+activation, panel focus entry/containment/restoration, inert background,
+Escape/backdrop close, previous/next along the filtered list including
+scroll-to-top and heading focus on story change, mark-as-read with live
+progress and reset-on-refresh, the design-system switch/tabs/panel demos,
+reduced-motion emulation, and a liveness check of every external source
+link. The same suites run against production after each deploy; results and
+curated screenshots are in [`docs/verification/`](./docs/verification/), and
+the iteration history is in [`docs/process/PROCESS.md`](./docs/process/PROCESS.md).
+
+A short human-review exercise for classmates is ready in
+[`docs/REVIEW_EXERCISE.md`](./docs/REVIEW_EXERCISE.md) — not yet conducted.
 
 **Known limitations:** source-link liveness is checked by HTTP status, not by
 reading each page; screen-reader behavior was reasoned from semantics

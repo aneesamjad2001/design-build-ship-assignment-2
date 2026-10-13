@@ -45,14 +45,15 @@ export default function LandmarksSite() {
   /* Continuous reading: when previous/next swaps the story, start the new one
      at the top and move focus to its heading so keyboard and screen-reader
      readers know the story changed. */
+  const selectedId = selected?.id;
   useEffect(() => {
-    if (!selected) return;
+    if (!selectedId) return;
     bodyRef.current?.scrollTo({ top: 0 });
     if (cameFromNav.current) {
       titleRef.current?.focus();
       cameFromNav.current = false;
     }
-  }, [selected?.id]);
+  }, [selectedId]);
 
   const navigate = (l: Landmark) => {
     cameFromNav.current = true;

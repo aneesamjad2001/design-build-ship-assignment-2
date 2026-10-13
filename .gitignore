@@ -39,3 +39,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# verification script output (curated copies live in docs/)
+scripts/verify/shots-*/
+scripts/verify/node_modules/
