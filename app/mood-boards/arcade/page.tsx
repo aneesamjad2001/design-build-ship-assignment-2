@@ -42,7 +42,7 @@ function Swatch({
   light?: boolean;
 }) {
   return (
-    <Tile span={span}>
+    <Tile span={span} className="border border-white/10">
       <div className="flex-1" style={{ backgroundColor: hex }} />
       <div
         className={`px-3 py-2 text-[10px] tracking-wider uppercase ${
@@ -111,7 +111,7 @@ export default function ArcadeBoard() {
           {/* — color — */}
           <Swatch hex="#0c0c12" name="Void" span="row-span-2" />
           <Swatch hex="#c8ff00" name="Acid" span="row-span-2" light />
-          <Swatch hex="#ff2e88" name="Magenta" />
+          <Swatch hex="#ff2e88" name="Magenta" light />
           <Swatch hex="#2de2e6" name="Cyan" light />
           <Swatch hex="#7b2ff7" name="Ultra" />
           <Swatch hex="#16161f" name="Panel" />

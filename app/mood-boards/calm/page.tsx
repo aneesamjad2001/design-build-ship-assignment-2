@@ -9,11 +9,13 @@ function Tile({
   span = "",
   className = "",
   label,
+  labelClass = "text-[var(--muted)]",
   children,
 }: {
   span?: string;
   className?: string;
   label?: string;
+  labelClass?: string;
   children?: React.ReactNode;
 }) {
   return (
@@ -22,7 +24,9 @@ function Tile({
     >
       {children}
       {label && (
-        <figcaption className="absolute bottom-2 left-3 text-[11px] tracking-wide text-[var(--muted)]">
+        <figcaption
+          className={`absolute bottom-2 left-3 text-[11px] tracking-wide ${labelClass}`}
+        >
           {label}
         </figcaption>
       )}
@@ -42,7 +46,7 @@ function Swatch({
   dark?: boolean;
 }) {
   return (
-    <Tile span={span}>
+    <Tile span={span} className="border border-black/10">
       <div className="flex-1" style={{ backgroundColor: hex }} />
       <div
         className={`px-3 py-2 text-[11px] tracking-wide ${
@@ -89,7 +93,7 @@ export default function CalmBoard() {
           <Swatch hex="#47684c" name="Sage" span="row-span-2" dark />
           <Swatch hex="#dfd9c8" name="Sand" />
           <Swatch hex="#2a2a24" name="Ink" dark />
-          <Swatch hex="#8a9b7d" name="Moss" />
+          <Swatch hex="#8a9b7d" name="Moss" dark />
           <Swatch hex="#e9ddca" name="Oat" />
           <Swatch hex="#c9a227" name="Honey" />
           <Swatch hex="#b9ac90" name="Stone" />
@@ -143,6 +147,7 @@ export default function CalmBoard() {
           <Tile
             className="bg-[linear-gradient(160deg,#8a9b7d_0%,#47684c_100%)]"
             label="fern shade"
+            labelClass="text-[#f4f1ea]"
           />
           <Tile
             className="bg-[#e7e1d2] bg-[radial-gradient(rgba(42,42,36,0.06)_1px,transparent_1.4px)] [background-size:6px_6px]"
@@ -196,7 +201,7 @@ export default function CalmBoard() {
           >
             <svg
               viewBox="0 0 160 48"
-              className="h-16 w-full px-4"
+              className="mb-6 h-12 w-full px-4"
               aria-hidden
               preserveAspectRatio="none"
             >
