@@ -119,6 +119,44 @@ export function ColorRole({
   );
 }
 
+/** One row of the control-state matrix: a component name followed by labeled
+ *  state specimens. Specimens are static renderings of each state (so hover
+ *  and focus can be seen side by side); the working controls live in the
+ *  Components section above. */
+export function StateRow({
+  name,
+  children,
+}: {
+  name: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <div className="grid grid-cols-1 gap-2 border-t border-[var(--border)] py-4 sm:grid-cols-[120px_1fr] sm:gap-4">
+      <h3 className="text-[11px] font-semibold tracking-[0.14em] uppercase text-[var(--text)] sm:pt-2">
+        {name}
+      </h3>
+      <div className="flex flex-wrap items-end gap-x-6 gap-y-3">{children}</div>
+    </div>
+  );
+}
+
+export function StateCell({
+  state,
+  children,
+}: {
+  state: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <figure className="flex flex-col items-start gap-1.5">
+      <div className="flex min-h-[36px] items-center">{children}</div>
+      <figcaption className="text-[10px] tracking-wide text-[var(--muted)]">
+        {state}
+      </figcaption>
+    </figure>
+  );
+}
+
 export function SpacingScale() {
   return (
     <div className="flex items-end gap-2">
