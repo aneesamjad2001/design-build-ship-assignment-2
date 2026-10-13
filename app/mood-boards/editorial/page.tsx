@@ -35,22 +35,26 @@ function Swatch({
   name,
   span,
   dark = false,
+  role,
 }: {
   hex: string;
   name: string;
   span?: string;
   dark?: boolean;
+  /** Which UI role this color earned — or "inspiration only" if it stayed on the board. */
+  role?: string;
 }) {
   return (
     <Tile span={span}>
       <div className="flex-1" style={{ backgroundColor: hex }} />
       <div
-        className={`px-2.5 py-1.5 text-[10px] tracking-wider uppercase ${
+        className={`px-2.5 py-1.5 text-[10px] leading-tight tracking-wider uppercase ${
           dark ? "text-[var(--surface)]" : "text-[var(--muted)]"
         }`}
         style={{ backgroundColor: hex }}
       >
         {name} · {hex}
+        {role && <span className="block text-[8px] normal-case opacity-80">{role}</span>}
       </div>
     </Tile>
   );
@@ -96,13 +100,13 @@ export default function EditorialBoard() {
           aria-label="28 artifacts"
           className="mt-8 grid auto-rows-[92px] grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-6"
         >
-          {/* — color — */}
-          <Swatch hex="#faf7f1" name="Newsprint" span="row-span-2" />
-          <Swatch hex="#121212" name="Ink" span="row-span-2" dark />
-          <Swatch hex="#c8102e" name="Crimson" dark />
-          <Swatch hex="#ffffff" name="Page" />
-          <Swatch hex="#57544c" name="Graphite" dark />
-          <Swatch hex="#e5ded0" name="Aged" />
+          {/* — color: five earned UI roles, one stayed inspiration — */}
+          <Swatch hex="#faf7f1" name="Newsprint" span="row-span-2" role="→ background" />
+          <Swatch hex="#121212" name="Ink" span="row-span-2" dark role="→ text & rules" />
+          <Swatch hex="#c8102e" name="Crimson" dark role="→ accent · action only" />
+          <Swatch hex="#ffffff" name="Page" role="→ surface" />
+          <Swatch hex="#57544c" name="Graphite" dark role="→ muted text" />
+          <Swatch hex="#e5ded0" name="Aged" role="inspiration only" />
 
           {/* — type — */}
           <Tile
@@ -146,7 +150,18 @@ export default function EditorialBoard() {
 
           {/* — texture & print furniture — */}
           <Tile span="row-span-2" className="texture-halftone bg-[var(--surface)]" label="halftone" />
-          <Tile className="texture-rules bg-[var(--surface)]" label="rules" />
+          <Tile
+            className="justify-center gap-0.5 bg-[var(--surface)] px-3"
+            label="study · archive card"
+          >
+            <span className="font-mono text-[9px] leading-relaxed text-[var(--text)]">
+              PERCEPTRON, MARK I — 1958.
+              <br />
+              <span className="text-[var(--muted)]">See: ROSENBLATT, F.</span>
+              <br />
+              <span className="text-[var(--muted)]">Shelf 41 · Drawer C</span>
+            </span>
+          </Tile>
           <Tile
             className="items-center justify-center bg-[var(--surface)]"
             label="dinkus"
@@ -168,16 +183,15 @@ export default function EditorialBoard() {
           </Tile>
           <Tile
             className="items-center justify-center bg-[var(--surface)]"
-            label="red mark"
+            label="study · journal figure"
           >
-            <svg viewBox="0 0 48 24" className="h-10 w-20" aria-hidden>
-              <path
-                d="M4 16 C14 8 34 8 44 14"
-                stroke="#c8102e"
-                strokeWidth="4"
-                fill="none"
-                strokeLinecap="round"
-              />
+            <svg viewBox="0 0 72 40" className="h-14 w-24" aria-hidden>
+              <circle cx="22" cy="20" r="11" fill="none" stroke="#121212" strokeWidth="1.4" />
+              <circle cx="22" cy="20" r="4" fill="#121212" />
+              <line x1="33" y1="14" x2="52" y2="8" stroke="#57544c" strokeWidth="0.8" />
+              <text x="54" y="10" fontSize="6" fill="#57544c" fontFamily="var(--font-geist-sans)">a</text>
+              <line x1="26" y1="23" x2="52" y2="30" stroke="#57544c" strokeWidth="0.8" />
+              <text x="54" y="33" fontSize="6" fill="#57544c" fontFamily="var(--font-geist-sans)">b</text>
             </svg>
           </Tile>
 
@@ -302,17 +316,58 @@ export default function EditorialBoard() {
           </Tile>
           <Tile
             span="col-span-2"
-            className="items-center justify-center bg-[var(--surface)]"
+            className="justify-center gap-1.5 bg-[var(--surface)] px-4"
+            label="study · front page"
           >
-            <span className="px-4 text-center text-sm italic text-[var(--muted)]">
-              Set in ink. Read twice.
+            <span className="text-center text-[11px] font-bold tracking-tight [font-family:var(--font-display)]">
+              THE LANDMARK REVIEW
+            </span>
+            <span className="h-px w-full bg-[var(--border)]" />
+            <span className="text-[10px] font-bold leading-tight [font-family:var(--font-display)]">
+              Machine Defeats Champion
+            </span>
+            <span className="flex gap-2">
+              <FauxLines n={3} />
+              <FauxLines n={3} />
             </span>
           </Tile>
         </section>
 
         <footer className="mt-8 text-center text-xs text-[var(--muted)]">
-          28 artifacts · color, type, print furniture, editorial fragments, interface pieces
+          28 artifacts · color (roles marked), type, print furniture, studies,
+          interface pieces — all original CSS/SVG, no photographs
         </footer>
+
+        <section className="mx-auto mt-10 max-w-2xl border-t-2 border-[var(--border)] pt-6">
+          <h2 className="text-xs font-semibold tracking-[0.18em] uppercase text-[var(--muted)] [font-family:var(--font-geist-sans)]">
+            Three lessons this board taught the system
+          </h2>
+          <ol className="mt-3 list-decimal space-y-2 pl-5 text-[13px] leading-relaxed text-[var(--muted)]">
+            <li>
+              Newspapers separate with rules, not boxes — the hairline and the
+              double rule became the system&apos;s only dividers, and shadows were
+              banned outright.
+            </li>
+            <li>
+              A front page spends red on one thing at most; that restraint
+              became the accent policy — crimson marks the action you should
+              take, never decoration or metadata.
+            </li>
+            <li>
+              Journal figures earn trust with captions, plate numbers, and
+              leader lines — the anatomy the site&apos;s archival illustrations
+              follow (Fig. 1–3, each captioned and sourced).
+            </li>
+          </ol>
+          <p className="mt-5 text-[13px]">
+            <Link
+              href="/design-systems/editorial"
+              className="underline decoration-[var(--text)]/40 underline-offset-4 hover:decoration-[var(--text)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
+            >
+              See the design system built from this board →
+            </Link>
+          </p>
+        </section>
       </main>
     </div>
   );

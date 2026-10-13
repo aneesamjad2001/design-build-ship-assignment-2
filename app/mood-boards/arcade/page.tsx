@@ -35,22 +35,26 @@ function Swatch({
   name,
   span,
   light = false,
+  role,
 }: {
   hex: string;
   name: string;
   span?: string;
   light?: boolean;
+  /** Which UI role this color earned — or "inspiration only" if it stayed on the board. */
+  role?: string;
 }) {
   return (
     <Tile span={span} className="border border-white/10">
       <div className="flex-1" style={{ backgroundColor: hex }} />
       <div
-        className={`px-3 py-2 text-[10px] tracking-wider uppercase ${
+        className={`px-3 py-2 text-[10px] leading-tight tracking-wider uppercase ${
           light ? "text-[#0c0c12]" : "text-[var(--muted)]"
         }`}
         style={{ backgroundColor: hex }}
       >
         {name} · {hex}
+        {role && <span className="block text-[8px] normal-case opacity-80">{role}</span>}
       </div>
     </Tile>
   );
@@ -108,13 +112,13 @@ export default function ArcadeBoard() {
           aria-label="28 artifacts"
           className="mt-8 grid auto-rows-[92px] grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-6"
         >
-          {/* — color — */}
-          <Swatch hex="#0c0c12" name="Void" span="row-span-2" />
-          <Swatch hex="#c8ff00" name="Acid" span="row-span-2" light />
-          <Swatch hex="#ff2e88" name="Magenta" light />
-          <Swatch hex="#2de2e6" name="Cyan" light />
-          <Swatch hex="#7b2ff7" name="Ultra" />
-          <Swatch hex="#16161f" name="Panel" />
+          {/* — color: four earned UI roles, two stayed inspiration — */}
+          <Swatch hex="#0c0c12" name="Void" span="row-span-2" role="→ background" />
+          <Swatch hex="#c8ff00" name="Acid" span="row-span-2" light role="→ accent · player one" />
+          <Swatch hex="#ff2e88" name="Magenta" light role="→ accent 2 · player two" />
+          <Swatch hex="#2de2e6" name="Cyan" light role="inspiration only" />
+          <Swatch hex="#7b2ff7" name="Ultra" role="inspiration only" />
+          <Swatch hex="#16161f" name="Panel" role="→ surface" />
 
           {/* — type — */}
           <Tile
@@ -167,9 +171,17 @@ export default function ArcadeBoard() {
             label="bloom"
           />
           <Tile
-            className="bg-[conic-gradient(from_90deg,#2de2e6,#c8ff00,#ff2e88,#2de2e6)] opacity-80"
-            label="attract mode"
-          />
+            className="items-center justify-center bg-[var(--surface)] border border-[var(--border)]"
+            label="study · cabinet"
+          >
+            <svg viewBox="0 0 40 56" className="h-20 w-14" aria-hidden>
+              <path d="M6 2 H34 V14 L30 22 V54 H10 V22 L6 14 Z" fill="none" stroke="#c8ff00" strokeWidth="1.6" />
+              <rect x="12" y="6" width="16" height="5" fill="#ff2e88" />
+              <rect x="13" y="24" width="14" height="10" fill="#2de2e6" opacity="0.5" />
+              <circle cx="16" cy="42" r="2" fill="#c8ff00" />
+              <circle cx="24" cy="42" r="2" fill="#ff2e88" />
+            </svg>
+          </Tile>
 
           {/* — pixel sprites — */}
           <Tile
@@ -300,21 +312,68 @@ export default function ArcadeBoard() {
               READY?
             </span>
           </Tile>
-          <Tile className="items-center justify-center bg-[var(--surface)] border border-[var(--border)]">
-            <span className="text-[10px] tracking-[0.3em] uppercase text-[var(--muted)]">
-              no save states
+          <Tile
+            className="justify-center gap-1 bg-[var(--surface)] border border-[var(--border)] px-3"
+            label="study · instruction card"
+          >
+            <span className="text-[8px] text-[var(--accent)] [font-family:var(--font-display)]">
+              HOW TO PLAY
+            </span>
+            <span className="text-[10px] leading-relaxed text-[var(--muted)]">
+              ① INSERT COIN
+              <br />② PICK AN ERA
+              <br />③ READ
             </span>
           </Tile>
-          <Tile className="items-center justify-center bg-[#1d1d2b]">
-            <span className="text-[10px] tracking-[0.3em] uppercase text-[#2de2e6]">
-              glow
+          <Tile
+            className="justify-center gap-1 bg-[#0a0f0a] px-3"
+            label="study · 1978 terminal"
+          >
+            <span className="font-mono text-[10px] leading-relaxed text-[#33ff66]">
+              &gt; LOAD &quot;LANDMARKS&quot;
+              <br />
+              &gt; RUN
+              <br />
+              &gt; <span className="animate-pulse">▮</span>
             </span>
           </Tile>
         </section>
 
         <footer className="mt-8 text-center text-xs text-[var(--muted)]">
-          28 artifacts · color, type, glow, sprites, interface pieces
+          28 artifacts · color (roles marked), type, glow, sprites, studies,
+          interface pieces — all original CSS/SVG, no photographs
         </footer>
+
+        <section className="mx-auto mt-10 max-w-2xl border-t border-[var(--border)] pt-6">
+          <h2 className="text-xs font-semibold tracking-[0.18em] uppercase text-[var(--muted)]">
+            Three lessons this board taught the system
+          </h2>
+          <ol className="mt-3 list-decimal space-y-2 pl-5 text-[13px] leading-relaxed text-[var(--muted)]">
+            <li>
+              Cabinet marquees put one glowing color on near-black — that
+              became the display type treatment, and the rule that glow is for
+              headlines, never body text.
+            </li>
+            <li>
+              Game HUDs confirm every input instantly — health bars, score
+              ticks — which became the hard-offset press states: buttons that
+              physically move when you hit them.
+            </li>
+            <li>
+              Instruction cards shout in numbered steps; readable Space
+              Grotesk carries the content while Press Start 2P is rationed to
+              labels, or the whole page becomes shouting.
+            </li>
+          </ol>
+          <p className="mt-5 text-[13px]">
+            <Link
+              href="/design-systems/arcade"
+              className="text-[var(--accent)] underline underline-offset-4 hover:text-[var(--accent-2)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
+            >
+              See the design system built from this board →
+            </Link>
+          </p>
+        </section>
       </main>
     </div>
   );

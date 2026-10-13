@@ -39,22 +39,26 @@ function Swatch({
   name,
   span,
   dark = false,
+  role,
 }: {
   hex: string;
   name: string;
   span?: string;
   dark?: boolean;
+  /** Which UI role this color earned — or "inspiration only" if it stayed on the board. */
+  role?: string;
 }) {
   return (
     <Tile span={span} className="border border-black/10">
       <div className="flex-1" style={{ backgroundColor: hex }} />
       <div
-        className={`px-3 py-2 text-[11px] tracking-wide ${
+        className={`px-3 py-2 text-[11px] leading-tight tracking-wide ${
           dark ? "text-[var(--bg)]" : "text-[var(--muted)]"
         }`}
         style={{ backgroundColor: hex }}
       >
         {name} · {hex}
+        {role && <span className="block text-[9px] opacity-80">{role}</span>}
       </div>
     </Tile>
   );
@@ -88,15 +92,15 @@ export default function CalmBoard() {
           aria-label="28 artifacts"
           className="mt-8 grid auto-rows-[92px] grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-6"
         >
-          {/* — color — */}
-          <Swatch hex="#f4f1ea" name="Cream" span="row-span-2" />
-          <Swatch hex="#47684c" name="Sage" span="row-span-2" dark />
-          <Swatch hex="#dfd9c8" name="Sand" />
-          <Swatch hex="#2a2a24" name="Ink" dark />
-          <Swatch hex="#8a9b7d" name="Moss" dark />
-          <Swatch hex="#e9ddca" name="Oat" />
-          <Swatch hex="#c9a227" name="Honey" />
-          <Swatch hex="#b9ac90" name="Stone" />
+          {/* — color: the four that earned UI roles, and four that stayed inspiration — */}
+          <Swatch hex="#f4f1ea" name="Cream" span="row-span-2" role="→ background" />
+          <Swatch hex="#47684c" name="Sage" span="row-span-2" dark role="→ the one accent" />
+          <Swatch hex="#dfd9c8" name="Sand" role="→ border" />
+          <Swatch hex="#2a2a24" name="Ink" dark role="→ text" />
+          <Swatch hex="#8a9b7d" name="Moss" dark role="inspiration only" />
+          <Swatch hex="#e9ddca" name="Oat" role="inspiration only" />
+          <Swatch hex="#c9a227" name="Honey" role="inspiration only" />
+          <Swatch hex="#b9ac90" name="Stone" role="inspiration only" />
 
           {/* — type — */}
           <Tile
@@ -129,7 +133,7 @@ export default function CalmBoard() {
             label="body"
           >
             <span className="px-4 text-center text-[13px] leading-relaxed text-[var(--text)]">
-              Set the kettle on. The rest can wait.
+              Move 37, and the room went quiet.
             </span>
           </Tile>
 
@@ -154,25 +158,26 @@ export default function CalmBoard() {
             label="paper grain"
           />
 
-          {/* — nature forms, drawn as SVG — */}
+          {/* — reference studies, drawn as SVG/CSS (no photographs) — */}
           <Tile
             span="row-span-2"
-            className="items-center justify-center border border-[var(--border)] bg-[var(--surface)]"
-            label="leaf"
+            className="items-center justify-center gap-2 border border-[var(--border)] bg-[var(--surface)]"
+            label="study · field-guide plate"
           >
-            <svg viewBox="0 0 48 64" className="h-24 w-16" aria-hidden>
+            <span className="text-[9px] tracking-[0.3em] text-[var(--muted)]">
+              PLATE IV
+            </span>
+            <svg viewBox="0 0 48 56" className="h-20 w-16" aria-hidden>
               <path
-                d="M24 4 C40 20 42 40 24 60 C6 40 8 20 24 4 Z"
+                d="M24 2 C40 18 42 36 24 54 C6 36 8 18 24 2 Z"
                 fill="#47684c"
                 opacity="0.9"
               />
-              <path
-                d="M24 10 L24 56"
-                stroke="#f4f1ea"
-                strokeWidth="1.6"
-                fill="none"
-              />
+              <path d="M24 8 L24 50" stroke="#f4f1ea" strokeWidth="1.6" fill="none" />
             </svg>
+            <span className="text-[9px] italic text-[var(--muted)]">
+              gathered near the lake
+            </span>
           </Tile>
           <Tile
             className="items-center justify-center bg-[#dfd9c8]"
@@ -240,9 +245,9 @@ export default function CalmBoard() {
             className="justify-center gap-1.5 bg-[var(--surface)] border border-[var(--border)] px-4"
             label="list row"
           >
-            <span className="text-sm">Piranesi</span>
+            <span className="text-sm">The Perceptron</span>
             <span className="text-[11px] text-[var(--muted)]">
-              Susanna Clarke · finished
+              1958 · Cornell · to read
             </span>
           </Tile>
           <Tile
@@ -272,24 +277,67 @@ export default function CalmBoard() {
             </span>
           </Tile>
           <Tile
-            className="items-center justify-center bg-[var(--surface)] border border-[var(--border)]"
+            className="justify-center gap-1 bg-[var(--surface)] border border-[var(--border)] px-3"
+            label="study · museum label"
           >
-            <span className="text-[11px] tracking-[0.3em] uppercase text-[var(--muted)]">
-              matte
+            <span className="text-[9px] tracking-[0.25em] text-[var(--muted)]">
+              SPECIMEN 41
+            </span>
+            <span className="text-[12px] [font-family:var(--font-display)]">
+              Mark I Perceptron
+            </span>
+            <span className="text-[9px] italic text-[var(--muted)]">
+              Cornell, 1958 · on loan
             </span>
           </Tile>
           <Tile
             className="items-center justify-center bg-[#e9ddca]"
+            label="study · reading lamp"
           >
-            <span className="text-[11px] tracking-[0.3em] uppercase text-[var(--muted)]">
-              soft edges
-            </span>
+            <svg viewBox="0 0 48 44" className="h-14 w-16" aria-hidden>
+              <path d="M14 8 L30 8 L36 20 L8 20 Z" fill="#47684c" />
+              <ellipse cx="22" cy="24" rx="12" ry="4" fill="#c9a227" opacity="0.35" />
+              <rect x="20" y="20" width="4" height="16" fill="#2a2a24" />
+              <rect x="12" y="36" width="20" height="3" rx="1.5" fill="#2a2a24" />
+            </svg>
           </Tile>
         </section>
 
         <footer className="mt-8 text-center text-xs text-[var(--muted)]">
-          28 artifacts · color, type, texture, nature forms, interface pieces
+          28 artifacts · color (roles marked), type, texture, studies, interface
+          pieces — all original CSS/SVG, no photographs
         </footer>
+
+        <section className="mx-auto mt-10 max-w-2xl border-t border-[var(--border)] pt-6">
+          <h2 className="text-xs font-semibold tracking-[0.18em] uppercase text-[var(--muted)]">
+            Three lessons this board taught the system
+          </h2>
+          <ol className="mt-3 list-decimal space-y-2 pl-5 text-[13px] leading-relaxed text-[var(--muted)]">
+            <li>
+              The museum label's quiet hierarchy — tiny tracked caps over a
+              serif name over an italic aside — became the card and list-row
+              anatomy in the Calm design system.
+            </li>
+            <li>
+              Field-guide plates frame one specimen in generous margin; that
+              ratio of air to subject set the spacing scale and the
+              one-idea-per-card rule.
+            </li>
+            <li>
+              Of eight colors explored, only four earned UI roles — the fern
+              green works precisely because nothing competes with it, which
+              became the single-accent rule.
+            </li>
+          </ol>
+          <p className="mt-5 text-[13px]">
+            <Link
+              href="/design-systems/calm"
+              className="underline underline-offset-4 decoration-[var(--border)] hover:decoration-[var(--accent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
+            >
+              See the design system built from this board →
+            </Link>
+          </p>
+        </section>
       </main>
     </div>
   );
