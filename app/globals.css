@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #fcfcfa;
+  --foreground: #1b1b18;
 }
 
 @theme inline {
@@ -12,15 +12,91 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+}
+
+/* ---------------------------------------------------------------------------
+   Style tokens for the three moods. Each page opts in with one wrapper class;
+   components reference the vars via Tailwind arbitrary values, e.g.
+   bg-[var(--bg)] text-[var(--text)].
+   Contrast ratios (WCAG, computed): see each design-system page.
+--------------------------------------------------------------------------- */
+
+.theme-calm {
+  --bg: #f4f1ea;
+  --surface: #fdfbf6;
+  --text: #2a2a24;
+  --muted: #6e6c5e;
+  --border: #dfd9c8;
+  --accent: #47684c;
+  --accent-ink: #f4f1ea;
+  --font-display: var(--font-fraunces), Georgia, serif;
+  --font-body: var(--font-geist-sans), Arial, sans-serif;
+  --radius: 10px;
+}
+
+.theme-arcade {
+  --bg: #0c0c12;
+  --surface: #16161f;
+  --text: #f2f2f7;
+  --muted: #9fa0b5;
+  --border: #2b2b3b;
+  --accent: #c8ff00;
+  --accent-2: #ff2e88;
+  --accent-ink: #0c0c12;
+  --font-display: var(--font-press-start), monospace;
+  --font-body: var(--font-space-grotesk), Arial, sans-serif;
+  --radius: 4px;
+}
+
+.theme-editorial {
+  --bg: #faf7f1;
+  --surface: #ffffff;
+  --text: #121212;
+  --muted: #57544c;
+  --border: #121212;
+  --accent: #c8102e;
+  --accent-ink: #ffffff;
+  --font-display: var(--font-playfair), Georgia, serif;
+  --font-body: var(--font-source-serif), Georgia, serif;
+  --radius: 0px;
+}
+
+/* Textures used on mood boards, kept as utilities so tiles stay declarative */
+
+.texture-linen {
+  background-image:
+    repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.035) 0 1px, transparent 1px 3px),
+    repeating-linear-gradient(90deg, rgba(0, 0, 0, 0.035) 0 1px, transparent 1px 3px);
+}
+
+.texture-scanlines {
+  background-image: repeating-linear-gradient(
+    0deg,
+    rgba(255, 255, 255, 0.07) 0 2px,
+    transparent 2px 5px
+  );
+}
+
+.texture-grid {
+  background-image:
+    linear-gradient(rgba(200, 255, 0, 0.14) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(200, 255, 0, 0.14) 1px, transparent 1px);
+  background-size: 18px 18px;
+}
+
+.texture-halftone {
+  background-image: radial-gradient(rgba(18, 18, 18, 0.22) 1.2px, transparent 1.3px);
+  background-size: 7px 7px;
+}
+
+.texture-rules {
+  background-image: repeating-linear-gradient(
+    0deg,
+    rgba(18, 18, 18, 0.14) 0 1px,
+    transparent 1px 9px
+  );
 }
