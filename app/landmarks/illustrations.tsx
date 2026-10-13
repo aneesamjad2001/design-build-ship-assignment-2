@@ -18,14 +18,26 @@ const capsLabel = {
 } as const;
 
 function Figure({
+  n,
+  heading,
   caption,
   children,
 }: {
+  n: number;
+  heading: string;
   caption: string;
   children: React.ReactNode;
 }) {
   return (
-    <figure className="mt-6 border-y border-[var(--border)] py-4">
+    <figure className="my-6 border-y border-[var(--border)] py-4">
+      <div className="mb-3 flex items-baseline justify-between gap-4">
+        <span className="text-[10px] font-semibold tracking-[0.25em] text-[var(--text)] [font-family:var(--font-geist-sans)]">
+          FIG. {n}
+        </span>
+        <span className="text-[10px] font-semibold tracking-[0.25em] uppercase text-[var(--muted)] [font-family:var(--font-geist-sans)]">
+          {heading}
+        </span>
+      </div>
       {children}
       <figcaption className="mt-3 text-[12px] italic leading-relaxed text-[var(--muted)]">
         {caption}
@@ -47,7 +59,7 @@ function PerceptronFigure() {
   ];
 
   return (
-    <Figure caption="Fig. 1 — Conceptual schematic after Rosenblatt (1958): sensory units respond to the image, association units combine them through adjustable weights, and a single response unit answers.">
+    <Figure n={1} heading="How it was wired" caption="Conceptual schematic after Rosenblatt (1958): sensory units respond to the image, association units combine them through adjustable weights, and a single response unit answers.">
       <svg
         viewBox="0 0 320 180"
         className="h-auto w-full"
@@ -139,7 +151,7 @@ function AlexNetFigure() {
     { label: "RUNNER-UP · ISI", value: 26.2, y: 70, solid: false },
   ];
   return (
-    <Figure caption="Fig. 2 — Top-5 error on the ImageNet 2012 challenge: 15.3% for AlexNet against 26.2% for the next best entry. Source: Krizhevsky, Sutskever & Hinton (2012); ILSVRC-2012 results.">
+    <Figure n={2} heading="The result" caption="Top-5 error on the ImageNet 2012 challenge: 15.3% for AlexNet against 26.2% for the next best entry. Source: Krizhevsky, Sutskever & Hinton (2012); ILSVRC-2012 results.">
       <svg
         viewBox="0 0 320 112"
         className="h-auto w-full"
@@ -203,7 +215,7 @@ function TransformerFigure() {
   const queryIndex = 2;
   const qx = x(queryIndex) + boxW / 2;
   return (
-    <Figure caption="Fig. 3 — Conceptual: one attention head weighing every word in the sentence while reading “sat” — heavier lines, more attention. Simplified after Vaswani et al. (2017).">
+    <Figure n={3} heading="What attention does" caption="Conceptual: one attention head weighing every word in the sentence while reading “sat” — heavier lines, more attention. Simplified after Vaswani et al. (2017).">
       <svg
         viewBox="0 0 320 128"
         className="h-auto w-full"

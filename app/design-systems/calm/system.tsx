@@ -9,6 +9,7 @@ import {
   SpacingScale,
   StateRow,
   StateCell,
+  SectionIndex,
 } from "../ui";
 import { SwitchDemo, TabsDemo, ModalDemo, MarkReadDemo } from "../demos";
 
@@ -34,7 +35,9 @@ export default function CalmSystem() {
       name="Calm"
       blurb="Soft pill shapes, generous air, one sage accent. No shadows — a thin warm border does the separating. Focus is a 2px sage outline, offset 2px, on every control."
     >
-      <Section n={1} title="Color roles" note="Ratios are WCAG contrast against the background; button text is checked against its own fill (cream on sage: 6.3:1).">
+      <SectionIndex />
+
+      <Section n={1} id="colors" title="Color roles" note="Ratios are WCAG contrast against the background; button text is checked against its own fill (cream on sage: 6.3:1).">
         <div className="grid grid-cols-3 gap-4 sm:grid-cols-6">
           <ColorRole hex="#f4f1ea" role="Background" border />
           <ColorRole hex="#fdfbf6" role="Surface" border />
@@ -45,7 +48,7 @@ export default function CalmSystem() {
         </div>
       </Section>
 
-      <Section n={2} title="Type roles" note="Fraunces for display and headings; Geist for body and labels.">
+      <Section n={2} id="type" title="Type roles" note="Fraunces for display and headings; Geist for body and labels.">
         <div className="flex flex-col gap-5 rounded-[var(--radius)] border border-[var(--border)] bg-[var(--surface)] p-6">
           <div>
             <p className="text-6xl [font-family:var(--font-display)]">1958</p>
@@ -103,10 +106,10 @@ export default function CalmSystem() {
         note="Everything the Landmarks site needs, in Calm. Form controls, the switch, the tabs, and the panel here are real and usable — the labeled state specimens live in 05."
       >
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          <Stage label="buttons · primary / secondary">
-            <div className="flex gap-3">
-              <button className={btnPrimary}>Mark as read</button>
-              <button className={btnSecondary}>All eras</button>
+          <Stage label="buttons · primary (working read/undo) · secondary (specimen)">
+            <div className="flex flex-wrap items-center justify-center gap-3">
+              <MarkReadDemo primaryClass={btnPrimary} doneClass={btnSecondary} />
+              <span aria-hidden className={btnSecondary}>All eras</span>
             </div>
           </Stage>
           <Stage label="link (goes to the site)">
@@ -257,9 +260,9 @@ export default function CalmSystem() {
       <Section
         n={5}
         title="Control states"
-        note="Static specimens of every state, side by side — the working controls are in 04."
+        note="Static specimens of every state, side by side — inert to clicks and the keyboard; the working controls are in 04."
       >
-        <div className="border-b border-[var(--border)]">
+        <div inert className="border-b border-[var(--border)]">
           <StateRow name="Primary button">
             <StateCell state="rest"><span className={`${btn} bg-[var(--accent)] text-[var(--accent-ink)]`}>Read</span></StateCell>
             <StateCell state="hover"><span className={`${btn} bg-[#3a5740] text-[var(--accent-ink)]`}>Read</span></StateCell>

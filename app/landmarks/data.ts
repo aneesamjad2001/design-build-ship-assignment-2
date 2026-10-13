@@ -59,7 +59,7 @@ export const LANDMARKS: Landmark[] = [
       "A machine that learned from examples — and a press conference that promised it would one day be conscious.",
     story: [
       "Frank Rosenblatt's Mark I Perceptron was a cabinet of wires and motorized potentiometers that learned to tell shapes apart by adjusting its own weights. After the Navy demonstration, The New York Times reported expectations that it would one day walk, talk, see, and reproduce itself.",
-      "It could, in fact, distinguish simple patterns. Minsky and Papert's 1969 book proved the single-layer version couldn't even learn XOR, and the first AI winter settled in. But the core idea — learn weights from data, don't hand-write rules — is the one everything since has kept.",
+      "It could, in fact, distinguish simple patterns. Minsky and Papert's 1969 book proved the single-layer version couldn't learn even a simple either/or rule (the famous XOR problem), and the first AI winter settled in. But the core idea — learn weights from data, don't hand-write rules — is the one everything since has kept.",
     ],
     why: "Every neural network trained today is this machine's descendant: weights, updates, examples.",
     citation: "Rosenblatt, “The Perceptron,” Psychological Review 65(6), 1958.",
@@ -79,9 +79,9 @@ export const LANDMARKS: Landmark[] = [
     kind: "Method",
     category: "Foundations",
     era: ERAS[0],
-    oneliner: "The chain rule, aimed at every weight at once — deep networks became trainable.",
+    oneliner: "Networks learn by tracing their mistakes backward — the training rule everything still uses.",
     story: [
-      "The idea had surfaced before, but the 1986 Nature paper made it impossible to ignore: propagate the error backward through the layers and every weight learns its share of the blame.",
+      "The idea had surfaced before, but the 1986 Nature paper made it impossible to ignore: when the network answers wrong, trace the error backward through its layers, and every connection learns its own share of the blame. Mathematically it is calculus's chain rule, aimed at every weight at once.",
       "It turned multi-layer networks from a theoretical object into something you could actually fit. It also ran into the limits of 1980s compute, and spent two decades waiting for hardware to catch up.",
     ],
     why: "Still the training algorithm. GPT and AlphaFold learned by exactly this rule.",
@@ -103,7 +103,7 @@ export const LANDMARKS: Landmark[] = [
     era: ERAS[1],
     oneliner: "A memory cell with gates — sequences stopped forgetting their own beginnings.",
     story: [
-      "Vanilla recurrent networks forgot what they'd read a few steps earlier; gradients vanished as they flowed back through time. The Long Short-Term Memory cell added gates that decide what to keep, what to write, and what to forget.",
+      "Networks that read one word at a time forgot what they'd seen a few steps earlier — the learning signal faded to nothing on its way back to the start. The Long Short-Term Memory cell added gates that decide what to keep, what to write, and what to forget.",
       "For twenty years it was the workhorse of speech recognition, translation, and text — until attention made recurrence itself optional.",
     ],
     why: "Proved machines could hold context across time — the problem language models still exist to solve.",
@@ -169,7 +169,7 @@ export const LANDMARKS: Landmark[] = [
     era: ERAS[2],
     oneliner: "Two gaming GPUs, eight layers, and the error rate falls off a cliff.",
     story: [
-      "Krizhevsky, Sutskever, and Hinton entered the 2012 ImageNet challenge with an eight-layer convolutional network trained on two consumer GPUs — famously, in Krizhevsky's bedroom. It scored 15.3% top-5 error; the runner-up scored 26.2%.",
+      "Krizhevsky, Sutskever, and Hinton entered the 2012 ImageNet challenge with an eight-layer neural network of the kind built for images (a convolutional network), trained on two consumer graphics cards — famously, in Krizhevsky's bedroom. It scored 15.3% top-5 error; the runner-up scored 26.2%.",
       "An eleven-point drop, in a contest where fractions of a point had counted as progress. A field that had spent decades arguing about hand-crafted features stopped arguing. Within three years every serious ImageNet entry was a deep network, and every large tech company had a deep learning team.",
     ],
     why: "The big bang of the deep learning era — depth plus GPUs plus data, the recipe ever since.",
@@ -192,7 +192,7 @@ export const LANDMARKS: Landmark[] = [
     era: ERAS[2],
     oneliner: "king − man + woman ≈ queen. Meaning, it turned out, had a geometry.",
     story: [
-      "Mikolov's team trained shallow networks to predict words from their neighbors, and the learned vectors arranged themselves into something uncanny: arithmetic on meanings worked.",
+      "Mikolov's team turned every word into a short list of numbers (a vector), learned by predicting words from their neighbors — and those numbers arranged themselves into something uncanny: arithmetic on meanings worked.",
       "Countries minus capitals, verbs minus tenses — the structure of language was lying there in the embedding space, learned from nothing but co-occurrence.",
     ],
     why: "The first mass demonstration that representations learned from raw text encode real semantics.",
@@ -248,9 +248,9 @@ export const LANDMARKS: Landmark[] = [
     kind: "Architecture",
     category: "Language",
     era: ERAS[3],
-    oneliner: "“Attention Is All You Need” — recurrence deleted, and the substrate of modern AI laid down.",
+    oneliner: "A design that reads everything at once, learning what to pay attention to — the foundation under modern AI.",
     story: [
-      "Eight authors proposed replacing recurrence entirely with attention: every token looks at every other token, in parallel. Training stopped being sequential, which meant it could finally scale with the hardware.",
+      "Instead of reading a sentence one word at a time, the paper “Attention Is All You Need” proposed attention: every word looks at every other word at once and learns what to weigh. Dropping the word-by-word loop meant training could finally scale with the hardware.",
       "GPT and Claude, BERT, AlphaFold's Evoformer, and most frontier image and audio systems of the 2020s build on this architecture. Few single design choices in the field's history have carried more of what followed.",
     ],
     why: "The architecture most of modern AI is built on.",
@@ -268,9 +268,9 @@ export const LANDMARKS: Landmark[] = [
     kind: "Model",
     category: "Language",
     era: ERAS[3],
-    oneliner: "Pretrain on everything, fine-tune on anything — the recipe becomes standard.",
+    oneliner: "Learn the language once from everything, then specialize cheaply for any task.",
     story: [
-      "BERT read text in both directions and learned by filling in masked words — then a small fine-tune set new state-of-the-art results on eleven NLP benchmarks at once.",
+      "BERT read text in both directions and taught itself language by filling in blanked-out words. After that general pretraining, a brief extra round of training for a specific job — a fine-tune — set new state-of-the-art results on eleven language benchmarks at once.",
       "It made “pretrained language model” the default starting point for every language task, and in 2019 Google put it into Search, where the company said it would affect about one in ten English queries.",
     ],
     why: "Normalized the pretrain-then-adapt economy that every modern model lives in.",
@@ -291,9 +291,9 @@ export const LANDMARKS: Landmark[] = [
     kind: "Model",
     category: "Language",
     era: ERAS[3],
-    oneliner: "175 billion parameters, and abilities nobody programmed began to show up.",
+    oneliner: "Make the model vastly bigger, and abilities nobody programmed start to show up.",
     story: [
-      "GPT-3 was the scaling-laws bet made flesh: same architecture, vastly more of everything. What emerged wasn't just better autocomplete — it could follow instructions, translate, and write passable code from a few examples placed in the prompt.",
+      "GPT-3 was the scaling bet made flesh: the same design, grown to 175 billion parameters — the adjustable numbers a network tunes as it learns. What emerged wasn't just better autocomplete: it could follow instructions, translate, and write passable code from a few examples placed in the prompt.",
       "“Few-shot learning” meant the model was doing something at inference time that looked uncomfortably like learning. The paper's real message: keep scaling, stranger things will emerge.",
     ],
     why: "Established that scale alone produces qualitatively new behavior — the field's current operating thesis.",
@@ -359,7 +359,7 @@ export const LANDMARKS: Landmark[] = [
     era: ERAS[4],
     oneliner: "A research demo becomes, by analysts' estimates, the fastest-growing consumer app on record.",
     story: [
-      "The underlying model wasn't new — GPT-3.5 with instruction tuning and reinforcement learning from human feedback. The interface was: a text box that talked back, free, to anyone.",
+      "The underlying model wasn't new — GPT-3.5, further trained with human feedback to follow instructions. The interface was: a text box that talked back, free, to anyone.",
       "Within two months, UBS analysts estimated a hundred million monthly users — reported at the time as the fastest a consumer application had ever grown. AI stopped being a research field the public read about and became a tool the public argued with. Every lab's roadmap, every company's strategy, and a few governments' agendas reorganized around it.",
     ],
     why: "The moment AI became an everyday object — and the demand signal that funds everything since.",

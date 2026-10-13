@@ -9,6 +9,7 @@ import {
   SpacingScale,
   StateRow,
   StateCell,
+  SectionIndex,
 } from "../ui";
 import { SwitchDemo, TabsDemo, ModalDemo, MarkReadDemo } from "../demos";
 
@@ -28,7 +29,7 @@ const focusRing =
 const btn = `inline-flex items-center justify-center px-5 py-2 text-xs tracking-[0.12em] uppercase transition-colors ${sans}`;
 const btnPrimary = `${btn} bg-[var(--accent)] text-[var(--accent-ink)] hover:bg-[#a60d26] active:bg-[#8d0b20] ${focusRing}`;
 const btnSecondary = `${btn} border border-[var(--text)] bg-transparent text-[var(--text)] hover:bg-[var(--text)]/5 active:bg-[var(--text)]/10 ${focusRing}`;
-const field = `border-b-2 border-[var(--text)] bg-transparent px-1 py-2 text-sm text-[var(--text)] placeholder:italic placeholder:text-[var(--muted)] focus-visible:outline-none focus-visible:border-[var(--accent)]`;
+const field = `border-b-2 border-[var(--text)] bg-transparent px-1 py-2 text-sm text-[var(--text)] placeholder:italic placeholder:text-[var(--muted)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)] focus-visible:border-[var(--accent)]`;
 const chipOn = `border border-[var(--text)] bg-[var(--text)] px-3 py-1.5 text-[11px] tracking-[0.12em] uppercase text-[var(--surface)] ${sans}`;
 const chipOff = `border border-[var(--text)] bg-transparent px-3 py-1.5 text-[11px] tracking-[0.12em] uppercase text-[var(--text)] ${sans}`;
 
@@ -39,7 +40,10 @@ export default function EditorialSystem() {
       name="Editorial"
       blurb="Square edges and hairline rules instead of boxes. Ink on newsprint — and crimson appears only as an action signal: the primary action, the read cue, and the focus ring. Everything informational is ink or gray."
     >
+      <SectionIndex />
+
       <Section
+        id="colors"
         n={1}
         title="Color roles"
         note="Ratios are WCAG contrast against the background; button text is checked against its own fill."
@@ -70,6 +74,7 @@ export default function EditorialSystem() {
       </Section>
 
       <Section
+        id="type"
         n={2}
         title="Type roles"
         note="Playfair Display for display and headings; Source Serif for body. Labels are the one sans moment."
@@ -101,6 +106,7 @@ export default function EditorialSystem() {
       </Section>
 
       <Section
+        id="spacing"
         n={3}
         title="Spacing and shape"
         note="Spacing scale in px · no rounding anywhere · no shadows — hierarchy comes from rules and weight."
@@ -125,15 +131,16 @@ export default function EditorialSystem() {
       </Section>
 
       <Section
+        id="components"
         n={4}
         title="Components"
         note="Everything the Landmarks site needs. Form controls, the switch, the tabs, and the panel here are real and usable — the labeled state specimens live in 05."
       >
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          <Stage label="buttons · primary / secondary">
-            <div className="flex gap-3">
-              <button className={btnPrimary}>Mark as read</button>
-              <button className={btnSecondary}>All eras</button>
+          <Stage label="buttons · primary (working read/undo) · secondary (specimen)">
+            <div className="flex flex-wrap items-center justify-center gap-3">
+              <MarkReadDemo primaryClass={btnPrimary} doneClass={btnSecondary} />
+              <span aria-hidden className={btnSecondary}>All eras</span>
             </div>
           </Stage>
           <Stage label="link (goes to the site)">
@@ -283,11 +290,12 @@ export default function EditorialSystem() {
       </Section>
 
       <Section
+        id="control-states"
         n={5}
         title="Control states"
-        note="Static specimens of every state, side by side — the working controls are in 04. Hover and pressed are shown with their styles applied."
+        note="Static specimens of every state, side by side — inert to clicks and the keyboard; the working controls are in 04. Hover and pressed are shown with their styles applied."
       >
-        <div className="border-b border-[var(--border)]">
+        <div inert className="border-b border-[var(--border)]">
           <StateRow name="Primary button">
             <StateCell state="rest"><span className={btn + " bg-[var(--accent)] text-[var(--accent-ink)]"}>Read</span></StateCell>
             <StateCell state="hover"><span className={btn + " bg-[#a60d26] text-[var(--accent-ink)]"}>Read</span></StateCell>
@@ -311,7 +319,7 @@ export default function EditorialSystem() {
           <StateRow name="Text input">
             <StateCell state="empty"><span className={`${field} w-36 text-[var(--muted)] italic`}>Search…</span></StateCell>
             <StateCell state="filled"><span className={`${field} w-36`}>AlphaGo</span></StateCell>
-            <StateCell state="focused"><span className={`${field} w-36 border-[var(--accent)]`}>AlphaG</span></StateCell>
+            <StateCell state="focused"><span className={`${field} w-36 border-[var(--accent)] outline-2 outline-offset-2 outline-[var(--accent)]`}>AlphaG</span></StateCell>
             <StateCell state="invalid">
               <span className="flex w-40 flex-col gap-1">
                 <span className={`${field} w-full border-[#8d0b20]`}>2031</span>
@@ -322,7 +330,7 @@ export default function EditorialSystem() {
           </StateRow>
           <StateRow name="Select">
             <StateCell state="default"><span className={`${field} w-40 not-italic`}>Sort: Chronological ▾</span></StateCell>
-            <StateCell state="focus"><span className={`${field} w-40 not-italic border-[var(--accent)]`}>Sort: Chronological ▾</span></StateCell>
+            <StateCell state="focus"><span className={`${field} w-40 not-italic border-[var(--accent)] outline-2 outline-offset-2 outline-[var(--accent)]`}>Sort: Chronological ▾</span></StateCell>
             <StateCell state="value chosen"><span className={`${field} w-40 not-italic font-semibold`}>Sort: Impact ▾</span></StateCell>
             <StateCell state="disabled"><span className={`${field} w-40 not-italic border-[var(--muted)]/40 text-[var(--muted)]/60`}>Sort: — ▾</span></StateCell>
           </StateRow>
@@ -397,6 +405,7 @@ export default function EditorialSystem() {
       </Section>
 
       <Section
+        id="ui-states"
         n={6}
         title="UI states"
         note="Playground specimens — the static site itself never fakes loading or failure."

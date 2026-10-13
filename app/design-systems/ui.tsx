@@ -37,19 +37,47 @@ export function Shell({
   );
 }
 
+/** Compact index of the six sections, linked by anchor — sits under the
+ *  page header so long system pages stay navigable without a sticky bar. */
+export function SectionIndex() {
+  const items = [
+    ["colors", "Colors"],
+    ["type", "Type"],
+    ["spacing", "Spacing"],
+    ["components", "Components"],
+    ["control-states", "Control states"],
+    ["ui-states", "UI states"],
+  ];
+  return (
+    <nav aria-label="Sections" className="mt-6 flex flex-wrap gap-x-5 gap-y-2">
+      {items.map(([id, label]) => (
+        <a
+          key={id}
+          href={`#${id}`}
+          className="text-[11px] font-semibold tracking-[0.14em] uppercase text-[var(--muted)] underline decoration-transparent underline-offset-4 transition-colors hover:text-[var(--text)] hover:decoration-[var(--accent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
+        >
+          {label}
+        </a>
+      ))}
+    </nav>
+  );
+}
+
 export function Section({
   n,
   title,
   note,
+  id,
   children,
 }: {
   n: number;
   title: string;
   note?: string;
+  id?: string;
   children: React.ReactNode;
 }) {
   return (
-    <section className="mt-12">
+    <section id={id} className="mt-12 scroll-mt-6">
       <h2 className="flex items-baseline gap-3 text-xs font-semibold tracking-[0.18em] uppercase text-[var(--muted)]">
         <span aria-hidden className="text-[var(--accent)]">
           {String(n).padStart(2, "0")}

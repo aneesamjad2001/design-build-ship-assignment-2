@@ -9,6 +9,7 @@ import {
   SpacingScale,
   StateRow,
   StateCell,
+  SectionIndex,
 } from "../ui";
 import { SwitchDemo, TabsDemo, ModalDemo, MarkReadDemo } from "../demos";
 
@@ -35,7 +36,9 @@ export default function ArcadeSystem() {
       name="Arcade"
       blurb="Sharp corners, hard offset shadows, acid lime as player one and magenta as player two. Everything glows a little. Focus is a 2px lime outline on every control."
     >
-      <Section n={1} title="Color roles" note="Ratios are WCAG contrast against the background; button text is checked against its own fill (void on acid: 16.5:1).">
+      <SectionIndex />
+
+      <Section n={1} id="colors" title="Color roles" note="Ratios are WCAG contrast against the background; button text is checked against its own fill (void on acid: 16.5:1).">
         <div className="grid grid-cols-3 gap-4 sm:grid-cols-7">
           <ColorRole hex="#0c0c12" role="Background" border />
           <ColorRole hex="#16161f" role="Surface" border />
@@ -47,7 +50,7 @@ export default function ArcadeSystem() {
         </div>
       </Section>
 
-      <Section n={2} title="Type roles" note="Press Start 2P for display and labels; Space Grotesk for everything you actually read.">
+      <Section n={2} id="type" title="Type roles" note="Press Start 2P for display and labels; Space Grotesk for everything you actually read.">
         <div className="flex flex-col gap-6 rounded-[var(--radius)] border border-[var(--border)] bg-[var(--surface)] p-6">
           <div>
             <p className="text-4xl text-[var(--accent)] [font-family:var(--font-display)] [text-shadow:0_0_16px_rgba(200,255,0,0.45)]">
@@ -104,10 +107,10 @@ export default function ArcadeSystem() {
         note="Everything the Landmarks site needs, in Arcade. Form controls, the switch, the tabs, and the panel here are real and usable — the labeled state specimens live in 05."
       >
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          <Stage label="buttons · primary / secondary">
-            <div className="flex gap-4">
-              <button className={btnPrimary}>Mark as read</button>
-              <button className={btnSecondary}>All eras</button>
+          <Stage label="buttons · primary (working read/undo) · secondary (specimen)">
+            <div className="flex flex-wrap items-center justify-center gap-3">
+              <MarkReadDemo primaryClass={btnPrimary} doneClass={btnSecondary} />
+              <span aria-hidden className={btnSecondary}>All eras</span>
             </div>
           </Stage>
           <Stage label="link (goes to the site)">
@@ -258,9 +261,9 @@ export default function ArcadeSystem() {
       <Section
         n={5}
         title="Control states"
-        note="Static specimens of every state, side by side — the working controls are in 04."
+        note="Static specimens of every state, side by side — inert to clicks and the keyboard; the working controls are in 04."
       >
-        <div className="border-b border-[var(--border)]">
+        <div inert className="border-b border-[var(--border)]">
           <StateRow name="Primary button">
             <StateCell state="rest"><span className={`${btn} bg-[var(--accent)] font-semibold text-[var(--accent-ink)] shadow-[3px_3px_0_var(--accent-2)]`}>Read</span></StateCell>
             <StateCell state="hover"><span className={`${btn} -translate-y-0.5 bg-[var(--accent)] font-semibold text-[var(--accent-ink)] shadow-[3px_4px_0_var(--accent-2)]`}>Read</span></StateCell>

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Modal from "../lib/Modal";
 import { ILLUSTRATIONS } from "./illustrations";
 import {
@@ -38,6 +38,26 @@ export default function LandmarksSite() {
   const [selected, setSelected] = useState<Landmark | null>(null);
   const [read, setRead] = useState<Set<string>>(new Set());
   const chipRefs = useRef<(HTMLButtonElement | null)[]>([]);
+  const bodyRef = useRef<HTMLDivElement>(null);
+  const titleRef = useRef<HTMLHeadingElement>(null);
+  const cameFromNav = useRef(false);
+
+  /* Continuous reading: when previous/next swaps the story, start the new one
+     at the top and move focus to its heading so keyboard and screen-reader
+     readers know the story changed. */
+  useEffect(() => {
+    if (!selected) return;
+    bodyRef.current?.scrollTo({ top: 0 });
+    if (cameFromNav.current) {
+      titleRef.current?.focus();
+      cameFromNav.current = false;
+    }
+  }, [selected?.id]);
+
+  const navigate = (l: Landmark) => {
+    cameFromNav.current = true;
+    setSelected(l);
+  };
 
   const visible = LANDMARKS.filter(
     (l) => filter === "All" || l.category === filter
@@ -235,7 +255,7 @@ export default function LandmarksSite() {
         className="panel panel-right theme-editorial"
       >
         {selected && (
-          <div className="panel-body ml-auto h-full w-full overflow-y-auto border-l-2 border-[#121212] bg-[#ffffff] text-[#121212] [font-family:var(--font-body)] sm:w-[480px]">
+          <div ref={bodyRef} className="panel-body ml-auto h-full w-full overflow-y-auto border-l-2 border-[#121212] bg-[#ffffff] text-[#121212] [font-family:var(--font-body)] sm:w-[520px]">
             {/* Sticky top bar keeps the close control reachable on mobile */}
             <div className="sticky top-0 z-10 flex items-center justify-between border-b border-[#121212]/15 bg-[#ffffff] px-6 py-3 sm:px-8">
               <p className={label}>
@@ -254,7 +274,11 @@ export default function LandmarksSite() {
               <p className="mt-5 text-6xl font-bold [font-family:var(--font-display)]">
                 {selected.yearLabel ?? selected.year}
               </p>
-              <h2 className="mt-2 text-3xl font-bold leading-tight [font-family:var(--font-display)]">
+              <h2
+                ref={titleRef}
+                tabIndex={-1}
+                className="mt-2 text-3xl font-bold leading-tight outline-none [font-family:var(--font-display)]"
+              >
                 {selected.name}
               </h2>
               <p className={`mt-2 ${label}`}>{selected.org}</p>
@@ -264,13 +288,17 @@ export default function LandmarksSite() {
                 </span>
               )}
 
-              <div className="mt-5 space-y-4 text-[15px] leading-relaxed">
-                {selected.story.map((p, i) => (
-                  <p key={i}>{p}</p>
-                ))}
+              <div className="mt-5 text-[15px] leading-relaxed">
+                <p className="first-letter:float-left first-letter:mr-2 first-letter:text-[52px] first-letter:font-bold first-letter:leading-[0.8] first-letter:[font-family:var(--font-display)]">
+                  {selected.story[0]}
+                </p>
+                {Illustration && <Illustration />}
+                <div className="mt-4 space-y-4">
+                  {selected.story.slice(1).map((p, i) => (
+                    <p key={i}>{p}</p>
+                  ))}
+                </div>
               </div>
-
-              {Illustration && <Illustration />}
 
               <div className="mt-6 border-t-2 border-[var(--border)] pt-4">
                 <p className={label}>Why it mattered</p>
@@ -323,7 +351,7 @@ export default function LandmarksSite() {
               {/* Previous / next follow the currently filtered list */}
               <div className="mt-7 flex items-stretch justify-between gap-3 border-t border-[var(--border)] pt-4">
                 <button
-                  onClick={() => prev && setSelected(prev)}
+                  onClick={() => prev && navigate(prev)}
                   disabled={!prev}
                   className={`max-w-[46%] text-left text-[13px] leading-snug transition-colors ${focusRing} ${
                     prev
@@ -339,7 +367,7 @@ export default function LandmarksSite() {
                   )}
                 </button>
                 <button
-                  onClick={() => next && setSelected(next)}
+                  onClick={() => next && navigate(next)}
                   disabled={!next}
                   className={`max-w-[46%] text-right text-[13px] leading-snug transition-colors ${focusRing} ${
                     next
