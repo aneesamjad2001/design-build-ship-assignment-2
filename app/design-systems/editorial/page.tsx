@@ -45,8 +45,9 @@ export default function EditorialSystem() {
           </div>
           <div>
             <p className="max-w-md text-[16px] leading-relaxed">
-              AlexNet halved the error rate on ImageNet, and a field that had
-              spent decades arguing about features stopped arguing.
+              AlexNet dropped ImageNet&apos;s top-5 error from 26 to 15 percent, and
+              a field that had spent decades arguing about features stopped
+              arguing.
             </p>
             <p className="mt-1 text-[11px] text-[var(--muted)]">Body · Source Serif 16/1.65 · regular</p>
           </div>
