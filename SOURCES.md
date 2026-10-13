@@ -22,7 +22,7 @@ claims that were corrected or deliberately qualified during the content audit
 | GPT-3 (2020) | Brown et al. — [arXiv:2005.14165](https://arxiv.org/abs/2005.14165) |
 | AlphaFold 2 (2020) | Jumper et al., *Nature* 596 (2021) — [doi:10.1038/s41586-021-03819-2](https://doi.org/10.1038/s41586-021-03819-2); [Nobel Prize 2024](https://www.nobelprize.org/prizes/chemistry/2024/summary/) |
 | Stable Diffusion (2022) | Rombach et al., CVPR 2022 — [arXiv:2112.10752](https://arxiv.org/abs/2112.10752); Stability AI public-release post |
-| ChatGPT (2022) | [OpenAI announcement](https://openai.com/blog/chatgpt); Reuters, Feb 1 2023 (UBS estimate) |
+| ChatGPT (2022) | [OpenAI announcement](https://openai.com/blog/chatgpt); The Guardian, Feb 2 2023 (reporting the UBS estimate) |
 | GPT-4 & Claude (2023) | [GPT-4 Technical Report](https://arxiv.org/abs/2303.08774); [Constitutional AI](https://arxiv.org/abs/2212.08073) |
 | Reasoning Models (2024–25) | [OpenAI o1](https://openai.com/index/learning-to-reason-with-llms/); [DeepSeek-R1](https://arxiv.org/abs/2501.12948); [Claude 3.7 Sonnet](https://www.anthropic.com/news/claude-3-7-sonnet) |
 

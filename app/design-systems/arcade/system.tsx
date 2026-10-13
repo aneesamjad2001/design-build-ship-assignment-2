@@ -391,7 +391,7 @@ export default function ArcadeSystem() {
           <Link href="/mood-boards/arcade" className={`underline underline-offset-2 ${focusRing}`}>
             Arcade mood board
           </Link>{" "}
-          — the cabinet's marquee glow became the display face, HUD bars became
+          — the cabinet&apos;s marquee glow became the display face, HUD bars became
           progress, and player-one/player-two colors became the two accents.
         </p>
       </div>

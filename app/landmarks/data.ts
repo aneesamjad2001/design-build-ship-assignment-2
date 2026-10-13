@@ -367,8 +367,8 @@ export const LANDMARKS: Landmark[] = [
     sources: [
       { label: "OpenAI: Introducing ChatGPT", url: "https://openai.com/blog/chatgpt" },
       {
-        label: "Reuters on the UBS estimate (Feb 2023)",
-        url: "https://www.reuters.com/technology/chatgpt-sets-record-fastest-growing-user-base-analyst-note-2023-02-01/",
+        label: "The Guardian on the UBS estimate (Feb 2023)",
+        url: "https://www.theguardian.com/technology/2023/feb/02/chatgpt-100-million-users-open-ai-fastest-growing-app",
       },
     ],
     badge: "Est. 100M users in 2 months",

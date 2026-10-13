@@ -179,7 +179,7 @@ export default function Hub() {
             <strong className="font-medium text-neutral-900">
               Publication rules became structure.
             </strong>{" "}
-            The newspaper's hairlines and double rules on the Editorial board
+            The newspaper&apos;s hairlines and double rules on the Editorial board
             became the system&apos;s only dividers — the site has no boxes or
             shadows anywhere.
           </li>

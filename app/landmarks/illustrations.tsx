@@ -147,8 +147,8 @@ function AlexNetFigure() {
         aria-labelledby="fig-alexnet-title"
       >
         <title id="fig-alexnet-title">
-          Bar chart: AlexNet's top-5 error of 15.3 percent compared with the
-          runner-up's 26.2 percent at the 2012 ImageNet challenge.
+          Bar chart: AlexNet&apos;s top-5 error of 15.3 percent compared with the
+          runner-up&apos;s 26.2 percent at the 2012 ImageNet challenge.
         </title>
         <defs>
           <pattern id="halftone-bar" width="4" height="4" patternUnits="userSpaceOnUse">
@@ -218,7 +218,7 @@ function TransformerFigure() {
         <text x="7" y="14" {...capsLabel}>
           ATTENTION WHILE READING “SAT”
         </text>
-        {tokens.map((t, i) => {
+        {tokens.map((_t, i) => {
           if (i === queryIndex) return null;
           const tx = x(i) + boxW / 2;
           const peak = 30 + Math.abs(i - queryIndex) * 4;

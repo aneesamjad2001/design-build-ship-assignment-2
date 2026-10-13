@@ -314,7 +314,7 @@ export default function CalmBoard() {
           </h2>
           <ol className="mt-3 list-decimal space-y-2 pl-5 text-[13px] leading-relaxed text-[var(--muted)]">
             <li>
-              The museum label's quiet hierarchy — tiny tracked caps over a
+              The museum label&apos;s quiet hierarchy — tiny tracked caps over a
               serif name over an italic aside — became the card and list-row
               anatomy in the Calm design system.
             </li>
